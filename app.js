@@ -4,6 +4,8 @@ const productRoutes = require('./routes/products.routes')
 const authRoutes = require('./routes/auth.routes')
 const morgan = require('morgan')
 const rateLimit = require('express-rate-limit')
+const cors = require('cors')
+const helmet = require('helmet')
 
 //middleware
 app.use(express.json())
@@ -17,6 +19,15 @@ const limiter = rateLimit({
   message: {error: 'Too many requests , please try again later'}
 })
 app.use(limiter)
+
+//security 
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods:['GET' , 'POST' , 'PATCH' , 'DELETE'] ,
+  allowedHeaders: ['Content-Type' , 'Authorization']
+}))
+
+app.use(helmet()) 
 
 //routes 
 
