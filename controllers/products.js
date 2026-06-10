@@ -7,7 +7,7 @@ const getallProducts = (req, res) => {
   const limit = parseInt(req.query.limit) || 10
   const offset = (page - 1) * limit
 
-  const cacheKey = `products:page:${page}:limit:${limit}`
+  const cacheKey = 'products:page:${page}:limit:${limit}'
 
   redisClient.get(cacheKey, async (err, cachedData) => {
     try {
